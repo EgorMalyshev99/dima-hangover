@@ -66,6 +66,7 @@
   .swiper-3 {
     @apply relative w-full;
     padding: 20px 0;
+    overflow: hidden;
   }
 
   .swiper-1 .swiper-wrapper,
@@ -79,6 +80,8 @@
   .swiper-2 .swiper-slide,
   .swiper-3 .swiper-slide {
     @apply h-auto w-full;
+    max-width: 320px;
+    width: auto;
     display: flex;
     align-items: stretch;
   }
@@ -104,14 +107,6 @@
 
   .slide-img {
     @apply relative z-10 h-full w-full object-contain;
-  }
-
-  /* Auto-size slides for continuous flow */
-  .swiper-1 .swiper-slide,
-  .swiper-2 .swiper-slide,
-  .swiper-3 .swiper-slide {
-    max-width: 250px;
-    width: auto;
   }
 
   /* Countdown timer styles */
@@ -225,6 +220,19 @@
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.8s ease-out;
+  }
+
+  /* Block scrolling when overlay is active */
+  body.scroll-locked {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    transition: all 0.3s ease-out;
+  }
+
+  body:not(.scroll-locked) {
+    transition: all 0.3s ease-in;
   }
 
   @keyframes pulse-glow {

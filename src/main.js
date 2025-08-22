@@ -10,12 +10,43 @@ import "swiper/css/bundle";
 // Initialize AOS (Animate On Scroll) - will be started after play button click
 let aosInitialized = false;
 
+// Lock scrolling initially
+function lockScroll() {
+  document.body.classList.add("scroll-locked");
+
+  // Additional mobile scroll prevention
+  document.addEventListener("touchmove", preventScroll, { passive: false });
+  document.addEventListener("wheel", preventScroll, { passive: false });
+}
+
+// Unlock scrolling
+function unlockScroll() {
+  document.body.classList.remove("scroll-locked");
+
+  // Remove scroll prevention listeners
+  document.removeEventListener("touchmove", preventScroll);
+  document.removeEventListener("wheel", preventScroll);
+}
+
+// Prevent scroll events
+function preventScroll(e) {
+  e.preventDefault();
+}
+
 // Initialize all functionality
 document.addEventListener("DOMContentLoaded", function () {
+  // Lock scrolling initially
+  lockScroll();
+
   initCountdown();
   initInteractiveElements();
   initAudioPlayer();
   initScrollArrow();
+});
+
+// Also lock scroll on window load for better reliability
+window.addEventListener("load", function () {
+  lockScroll();
 });
 
 // Countdown timer
@@ -127,6 +158,19 @@ function initInteractiveElements() {
 
 // Initialize Multiple Swipers
 function initGallerySwiper() {
+  // Generate slides for each swiper
+  generateSlides(".swiper-1", 20);
+  generateSlides(".swiper-2", 20);
+  generateSlides(".swiper-3", 20);
+
+  // Wait a bit for slides to be created, then initialize Swiper
+  setTimeout(() => {
+    initSwiperInstances();
+  }, 100);
+}
+
+// Initialize Swiper instances separately
+function initSwiperInstances() {
   // Slider 1 - Moving Right
   const swiper1 = new Swiper(".swiper-1", {
     modules: [Autoplay],
@@ -135,10 +179,9 @@ function initGallerySwiper() {
       pauseOnMouseEnter: false,
     },
     loop: true,
-    loopFillGroupWithBlank: true,
     slidesPerView: "auto",
     spaceBetween: 20,
-    speed: 4000,
+    speed: 2000,
     allowTouchMove: false,
   });
 
@@ -151,10 +194,9 @@ function initGallerySwiper() {
       reverseDirection: true,
     },
     loop: true,
-    loopFillGroupWithBlank: true,
     slidesPerView: "auto",
     spaceBetween: 20,
-    speed: 7000,
+    speed: 4000,
     allowTouchMove: false,
   });
 
@@ -166,80 +208,54 @@ function initGallerySwiper() {
       pauseOnMouseEnter: false,
     },
     loop: true,
-    loopFillGroupWithBlank: true,
     slidesPerView: "auto",
     spaceBetween: 20,
-    speed: 4000,
+    speed: 2000,
     allowTouchMove: false,
   });
 }
 
-// Confetti effect
-function createConfetti() {
-  const colors = ["#ff6b35", "#f7931e", "#ffd23f", "#27ae60", "#3498db"];
+// Generate slides with shuffled images
+function generateSlides(swiperSelector, slideCount) {
+  const swiperWrapper = document.querySelector(
+    `${swiperSelector} .swiper-wrapper`
+  );
+  if (!swiperWrapper) return;
 
-  for (let i = 0; i < 50; i++) {
-    const confetti = document.createElement("div");
-    confetti.className = "fixed w-3 h-3 pointer-events-none z-40";
-    confetti.style.backgroundColor =
-      colors[Math.floor(Math.random() * colors.length)];
-    confetti.style.left = Math.random() * 100 + "vw";
-    confetti.style.top = "-10px";
-    confetti.style.animation = "confetti-fall 3s linear forwards";
+  const allImages = Array.from({ length: 26 }, (_, i) => i + 1);
 
-    document.body.appendChild(confetti);
+  // Shuffle the array
+  const shuffledImages = shuffleArray([...allImages]);
 
-    // Remove confetti after animation
-    setTimeout(() => {
-      if (confetti.parentNode) {
-        confetti.remove();
-      }
-    }, 3000);
-  }
+  // Take first 'slideCount' images
+  const selectedImages = shuffledImages.slice(0, slideCount);
 
-  // Add confetti animation CSS if not exists
-  if (!document.querySelector("#confetti-styles")) {
-    const style = document.createElement("style");
-    style.id = "confetti-styles";
-    style.textContent = `
-      @keyframes confetti-fall {
-        to {
-          transform: translateY(100vh) rotate(360deg);
-        }
-      }
+  // Generate HTML for each slide
+  selectedImages.forEach(imageNum => {
+    const slideHTML = `
+      <div class="swiper-slide">
+        <div class="overflow-hidden rounded border-gray-600 bg-gray-800">
+          <div
+            class="slide-bg"
+            style="background-image: url('/img/${imageNum}.jpg')"
+          ></div>
+          <img src="/img/${imageNum}.jpg" alt="Фото ${imageNum}" class="slide-img" />
+        </div>
+      </div>
     `;
-    document.head.appendChild(style);
-  }
+    swiperWrapper.insertAdjacentHTML("beforeend", slideHTML);
+  });
 }
 
-// Easter egg: Konami code
-let konamiCode = [];
-const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // ↑↑↓↓←→←→BA
-
-document.addEventListener("keydown", function (e) {
-  konamiCode.push(e.keyCode);
-
-  if (konamiCode.length > konamiSequence.length) {
-    konamiCode.shift();
+// Fisher-Yates shuffle algorithm
+function shuffleArray(array) {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
-
-  if (konamiCode.join(",") === konamiSequence.join(",")) {
-    // Konami code activated!
-    createConfetti();
-
-    // Add rainbow effect
-    document.body.style.filter = "hue-rotate(0deg)";
-    let hue = 0;
-    const rainbowInterval = setInterval(() => {
-      hue += 10;
-      document.body.style.filter = `hue-rotate(${hue}deg)`;
-      if (hue >= 360) {
-        clearInterval(rainbowInterval);
-        document.body.style.filter = "";
-      }
-    }, 100);
-  }
-});
+  return shuffled;
+}
 
 // Audio Player functionality
 function initAudioPlayer() {
@@ -272,6 +288,9 @@ function initAudioPlayer() {
 
         // Hide the fullscreen overlay
         playOverlay.classList.add("hidden");
+
+        // Unlock scrolling
+        unlockScroll();
 
         // Start typing effect for h1
         initTypingEffect();

@@ -17,33 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Initialize all functionality
-  initFloatingElements();
   initCountdown();
-  initParallax();
   initTypingEffect();
   initInteractiveElements();
 });
-
-// Floating elements animation
-function initFloatingElements() {
-  const floatingElements = document.querySelectorAll(
-    ".floating-guitar, .floating-scooby, .floating-max"
-  );
-
-  floatingElements.forEach((element, index) => {
-    // Add random movement
-    setInterval(
-      () => {
-        const randomX = Math.random() * 20 - 10;
-        const randomY = Math.random() * 20 - 10;
-        const randomRotate = Math.random() * 20 - 10;
-
-        element.style.transform = `translate(${randomX}px, ${randomY}px) rotate(${randomRotate}deg)`;
-      },
-      3000 + index * 1000
-    );
-  });
-}
 
 // Countdown timer
 function initCountdown() {
@@ -108,22 +85,6 @@ function initCountdown() {
   // Update countdown every second
   setInterval(updateCountdown, 1000);
   updateCountdown();
-}
-
-// Parallax effect
-function initParallax() {
-  window.addEventListener("scroll", function () {
-    const scrolled = window.pageYOffset;
-    const parallaxElements = document.querySelectorAll(
-      ".floating-guitar, .floating-scooby, .floating-max"
-    );
-
-    parallaxElements.forEach((element, index) => {
-      const speed = 0.5 + index * 0.1;
-      const yPos = -(scrolled * speed);
-      element.style.transform = `translateY(${yPos}px)`;
-    });
-  });
 }
 
 // Typing effect for hero title
@@ -214,50 +175,6 @@ function initGallerySwiper() {
   });
 }
 
-// Notification system
-function showNotification(message, type = "info") {
-  // Remove existing notifications
-  const existingNotifications = document.querySelectorAll(".notification");
-  existingNotifications.forEach(notification => notification.remove());
-
-  // Create notification element
-  const notification = document.createElement("div");
-  notification.className = `notification fixed top-5 right-5 z-50 max-w-sm p-4 rounded-lg shadow-lg transition-transform duration-300 transform translate-x-full`;
-
-  const bgColor =
-    type === "success"
-      ? "bg-green-500"
-      : type === "error"
-        ? "bg-red-500"
-        : "bg-blue-500";
-  notification.classList.add(bgColor, "text-white");
-
-  notification.innerHTML = `
-    <div class="flex items-center justify-between">
-      <span class="pr-4">${message}</span>
-      <button class="notification-close text-white hover:text-gray-200" onclick="this.parentElement.parentElement.remove()">
-        ✕
-      </button>
-    </div>
-  `;
-
-  // Add to page
-  document.body.appendChild(notification);
-
-  // Animate in
-  setTimeout(() => {
-    notification.classList.remove("translate-x-full");
-  }, 100);
-
-  // Auto remove after 5 seconds
-  setTimeout(() => {
-    if (notification.parentNode) {
-      notification.classList.add("translate-x-full");
-      setTimeout(() => notification.remove(), 300);
-    }
-  }, 5000);
-}
-
 // Confetti effect
 function createConfetti() {
   const colors = ["#ff6b35", "#f7931e", "#ffd23f", "#27ae60", "#3498db"];
@@ -309,10 +226,6 @@ document.addEventListener("keydown", function (e) {
 
   if (konamiCode.join(",") === konamiSequence.join(",")) {
     // Konami code activated!
-    showNotification(
-      "🎉 Контра-код активирован! Мальчишник будет еще круче! 🎉",
-      "success"
-    );
     createConfetti();
 
     // Add rainbow effect
@@ -328,20 +241,3 @@ document.addEventListener("keydown", function (e) {
     }, 100);
   }
 });
-
-// Fun facts that appear randomly
-const funFacts = [
-  "Факт: Гитара на мальчишнике звучит в 3 раза громче обычного!",
-  "Интересный факт: В доме на колесах время течет медленнее!",
-  "Статистика: Лучшие воспоминания создаются в кругу друзей!",
-  "Факт: Совместные поездки укрепляют дружбу на годы вперед!",
-  "Знаете ли вы: Хорошая компания делает любое место особенным!",
-];
-
-function showRandomFunFact() {
-  const fact = funFacts[Math.floor(Math.random() * funFacts.length)];
-  showNotification(fact, "info");
-}
-
-// Show random fun fact every 30 seconds
-setInterval(showRandomFunFact, 30000);

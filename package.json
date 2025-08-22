@@ -1,5 +1,5 @@
 {
-  "name": "malchishnik-2025",
+  "name": "dima-hangover",
   "version": "1.0.0",
   "description": "Лендинг-приглашение на мальчишник 2025",
   "type": "module",
@@ -7,13 +7,15 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:prod": "NODE_ENV=production vite build",
     "preview": "vite preview",
     "clean": "rm -rf dist node_modules",
     "reinstall": "pnpm clean && pnpm install",
     "lint": "eslint src --ext .js,.ts,.jsx,.tsx",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "format:fix": "prettier --write . --ignore-unknown"
+    "format:fix": "prettier --write . --ignore-unknown",
+    "deploy": "pnpm build:prod && echo 'Build completed! Push to main branch to deploy.'"
   },
   "devDependencies": {
     "vite": "^7.1.3",

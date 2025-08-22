@@ -1,0 +1,182 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom component classes - только те, где нужны кастомные CSS свойства */
+@layer components {
+  /* Floating elements с кастомными позициями */
+  .floating-guitar {
+    @apply absolute text-6xl opacity-30 animate-float;
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+
+  .floating-scooby {
+    @apply absolute text-6xl opacity-30 animate-float;
+    top: 60%;
+    right: 15%;
+    animation-delay: 2s;
+  }
+
+  .floating-max {
+    @apply absolute text-6xl opacity-30 animate-float;
+    top: 40%;
+    right: 25%;
+    animation-delay: 4s;
+  }
+
+  /* Новые автомобильные логотипы */
+  .floating-porsche {
+    @apply absolute text-5xl opacity-40 animate-float;
+    top: 15%;
+    left: 20%;
+    animation-delay: 1s;
+  }
+
+  .floating-audi {
+    @apply absolute text-5xl opacity-40 animate-float;
+    top: 70%;
+    left: 25%;
+    animation-delay: 3s;
+  }
+
+  .floating-bmw {
+    @apply absolute text-5xl opacity-40 animate-float;
+    top: 25%;
+    right: 10%;
+    animation-delay: 5s;
+  }
+
+  .floating-mercedes {
+    @apply absolute text-5xl opacity-40 animate-float;
+    top: 80%;
+    right: 30%;
+    animation-delay: 7s;
+  }
+
+  /* Date badge с кастомным поворотом */
+  .date-badge {
+    @apply bg-white/10 backdrop-blur-sm border-2 border-white/20 p-8 inline-block text-white transition-all duration-300;
+    transform: rotate(-2deg);
+  }
+
+  .date-badge:hover {
+    transform: rotate(0deg) scale(1.05);
+    @apply bg-white/20;
+  }
+
+  /* Section title с кастомным псевдоэлементом */
+  .section-title {
+    @apply text-4xl font-bold text-dark relative mb-4;
+  }
+
+  .section-title::after {
+    content: "";
+    @apply absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-gradient-to-r from-primary to-secondary rounded-full;
+  }
+
+  /* Funny quote с кастомным поворотом и псевдоэлементом */
+  .funny-quote {
+    @apply bg-gradient-to-br from-primary to-secondary text-white p-8 relative;
+    transform: rotate(1deg);
+  }
+
+  .funny-quote::before {
+    content: '"';
+    @apply absolute -top-2 left-5 text-6xl text-white/30;
+  }
+
+  /* Meeting card с кастомным псевдоэлементом */
+  .meeting-card {
+    @apply bg-white p-12 relative overflow-hidden transition-all duration-300 hover:-translate-y-3;
+  }
+
+  .meeting-card::before {
+    content: "";
+    @apply absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-accent;
+  }
+
+  /* Stat items с кастомными свойствами */
+  .stat-item {
+    @apply text-center bg-white/10 backdrop-blur-sm border-2 border-white/20 p-8 min-w-[120px] transition-all duration-300 hover:-translate-y-2 hover:bg-white/20 hover:border-accent;
+  }
+
+  .stat-number {
+    @apply block text-5xl font-bold text-accent mb-2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .stat-label {
+    @apply block text-base text-white uppercase tracking-wide opacity-90;
+  }
+
+  /* Статические автомобильные логотипы */
+  .car-logo {
+    @apply text-4xl p-4 bg-gray-800 border-2 border-gray-600 transition-all duration-300 hover:scale-110 hover:border-primary hover:bg-gray-700;
+  }
+
+  .porsche-logo {
+    @apply text-red-500;
+  }
+
+  .audi-logo {
+    @apply text-blue-500;
+  }
+
+  .bmw-logo {
+    @apply text-blue-600;
+  }
+
+  .mercedes-logo {
+    @apply text-gray-300;
+  }
+
+  /* Custom scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    @apply w-3;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-primary rounded-lg;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-secondary;
+  }
+}
+
+/* Responsive adjustments */
+@layer utilities {
+  @media (max-width: 768px) {
+    .floating-guitar,
+    .floating-scooby,
+    .floating-max,
+    .floating-porsche,
+    .floating-audi,
+    .floating-bmw,
+    .floating-mercedes {
+      @apply text-4xl;
+    }
+
+    .date-badge {
+      @apply p-6 mx-4;
+    }
+
+    .meeting-card {
+      @apply p-8;
+    }
+
+    .stat-item {
+      @apply min-w-[100px] p-6;
+    }
+
+    .stat-number {
+      @apply text-4xl;
+    }
+  }
+}

@@ -7,16 +7,11 @@ import Swiper from "swiper/bundle";
 import { Autoplay } from "swiper/modules";
 import "swiper/css/bundle";
 
-// Initialize AOS (Animate On Scroll)
-document.addEventListener("DOMContentLoaded", function () {
-  AOS.init({
-    duration: 800,
-    easing: "ease-in-out",
-    once: true,
-    offset: 100,
-  });
+// Initialize AOS (Animate On Scroll) - will be started after play button click
+let aosInitialized = false;
 
-  // Initialize all functionality
+// Initialize all functionality
+document.addEventListener("DOMContentLoaded", function () {
   initCountdown();
   initInteractiveElements();
   initAudioPlayer();
@@ -44,7 +39,7 @@ function initCountdown() {
       if (!countdownElement) {
         countdownElement = document.createElement("div");
         countdownElement.className =
-          "countdown-timer flex justify-center gap-4 lg:gap-8 my-8 flex-wrap";
+          "countdown-timer flex justify-center gap-4 lg:gap-6 my-6 flex-wrap";
         countdownElement.innerHTML = `
           <div class="countdown-item">
             <span class="countdown-number">${days}</span>
@@ -127,8 +122,7 @@ function initInteractiveElements() {
       });
     });
 
-  // Initialize Swiper gallery
-  initGallerySwiper();
+  // Swiper gallery will be initialized after play button click
 }
 
 // Initialize Multiple Swipers
@@ -281,6 +275,20 @@ function initAudioPlayer() {
 
         // Start typing effect for h1
         initTypingEffect();
+
+        // Initialize Swiper gallery
+        initGallerySwiper();
+
+        // Initialize AOS animations
+        if (!aosInitialized) {
+          AOS.init({
+            duration: 800,
+            easing: "ease-in-out",
+            once: true,
+            offset: 100,
+          });
+          aosInitialized = true;
+        }
 
         console.log("Audio started successfully");
       })

@@ -110,8 +110,8 @@
   .swiper-1 .swiper-slide,
   .swiper-2 .swiper-slide,
   .swiper-3 .swiper-slide {
+    max-width: 250px;
     width: auto;
-    min-width: 300px;
   }
 
   /* Countdown timer styles */
@@ -120,7 +120,7 @@
   }
 
   .countdown-number {
-    @apply mb-2 block text-4xl font-bold text-accent;
+    @apply mb-2 block text-4xl font-bold text-accent lg:text-7xl;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   }
 

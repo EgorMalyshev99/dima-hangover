@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: process.env.NODE_ENV === 'production' ? '/dima/' : './',
+  base: process.env.NODE_ENV === "production" ? "/dima-hangover/" : "./",
   build: {
     outDir: "dist",
     assetsDir: "assets",

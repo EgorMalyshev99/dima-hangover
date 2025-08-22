@@ -18,8 +18,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Initialize all functionality
   initCountdown();
-  initTypingEffect();
   initInteractiveElements();
+  initAudioPlayer();
+  initScrollArrow();
 });
 
 // Countdown timer
@@ -43,23 +44,23 @@ function initCountdown() {
       if (!countdownElement) {
         countdownElement = document.createElement("div");
         countdownElement.className =
-          "countdown-timer flex justify-center gap-8 my-8 flex-wrap";
+          "countdown-timer flex justify-center gap-4 lg:gap-8 my-8 flex-wrap";
         countdownElement.innerHTML = `
-          <div class="countdown-item text-center bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-3xl p-6 min-w-[100px] transition-all duration-300 hover:-translate-y-2 hover:bg-white/20 hover:border-accent">
-            <span class="countdown-number block text-4xl font-bold text-accent mb-2" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">${days}</span>
-            <span class="countdown-label block text-sm text-white uppercase tracking-wide opacity-90">дней</span>
+          <div class="countdown-item">
+            <span class="countdown-number">${days}</span>
+            <span class="countdown-label">дней</span>
           </div>
-          <div class="countdown-item text-center bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-3xl p-6 min-w-[100px] transition-all duration-300 hover:-translate-y-2 hover:bg-white/20 hover:border-accent">
-            <span class="countdown-number block text-4xl font-bold text-accent mb-2" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">${hours}</span>
-            <span class="countdown-label block text-sm text-white uppercase tracking-wide opacity-90">часов</span>
+          <div class="countdown-item">
+            <span class="countdown-number">${hours}</span>
+            <span class="countdown-label">часов</span>
           </div>
-          <div class="countdown-item text-center bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-3xl p-6 min-w-[100px] transition-all duration-300 hover:-translate-y-2 hover:bg-white/20 hover:border-accent">
-            <span class="countdown-number block text-4xl font-bold text-accent mb-2" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">${minutes}</span>
-            <span class="countdown-label block text-sm text-white uppercase tracking-wide opacity-90">минут</span>
+          <div class="countdown-item">
+            <span class="countdown-number">${minutes}</span>
+            <span class="countdown-label">минут</span>
           </div>
-          <div class="countdown-item text-center bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-3xl p-6 min-w-[100px] transition-all duration-300 hover:-translate-y-2 hover:bg-white/20 hover:border-accent">
-            <span class="countdown-number block text-4xl font-bold text-accent mb-2" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">${seconds}</span>
-            <span class="countdown-label block text-sm text-white uppercase tracking-wide opacity-90">секунд</span>
+          <div class="countdown-item">
+            <span class="countdown-number">${seconds}</span>
+            <span class="countdown-label">секунд</span>
           </div>
         `;
 
@@ -90,22 +91,23 @@ function initCountdown() {
 // Typing effect for hero title
 function initTypingEffect() {
   const heroTitle = document.querySelector("h1");
-  if (heroTitle) {
-    const text = heroTitle.textContent;
-    heroTitle.textContent = "";
+  if (!heroTitle || heroTitle.dataset.typingStarted) return;
 
-    let i = 0;
-    const typeWriter = () => {
-      if (i < text.length) {
-        heroTitle.textContent += text.charAt(i);
-        i++;
-        setTimeout(typeWriter, 100);
-      }
-    };
+  heroTitle.dataset.typingStarted = "true";
+  const text = heroTitle.textContent;
+  heroTitle.textContent = "";
 
-    // Start typing effect after a delay
-    setTimeout(typeWriter, 500);
-  }
+  let i = 0;
+  const typeWriter = () => {
+    if (i < text.length) {
+      heroTitle.textContent += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, 100);
+    }
+  };
+
+  // Start typing effect immediately
+  typeWriter();
 }
 
 // Interactive elements
@@ -129,49 +131,52 @@ function initInteractiveElements() {
   initGallerySwiper();
 }
 
-// Initialize Swiper gallery
+// Initialize Multiple Swipers
 function initGallerySwiper() {
-  const gallerySwiper = new Swiper(".gallery-swiper", {
-    // Configure Swiper to use modules
+  // Slider 1 - Moving Right
+  const swiper1 = new Swiper(".swiper-1", {
     modules: [Autoplay],
-
-    // Enable autoplay
     autoplay: {
-      delay: 3000,
-      disableOnInteraction: false,
+      delay: 0,
+      pauseOnMouseEnter: false,
     },
-
-    // Enable loop
     loop: true,
+    loopFillGroupWithBlank: true,
+    slidesPerView: "auto",
+    spaceBetween: 20,
+    speed: 4000,
+    allowTouchMove: false,
+  });
 
-    // Responsive breakpoints
-    breakpoints: {
-      320: {
-        slidesPerView: 1,
-        spaceBetween: 20,
-      },
-      768: {
-        slidesPerView: 2,
-        spaceBetween: 30,
-      },
-      1024: {
-        slidesPerView: 3,
-        spaceBetween: 40,
-      },
+  // Slider 2 - Moving Left
+  const swiper2 = new Swiper(".swiper-2", {
+    modules: [Autoplay],
+    autoplay: {
+      delay: 0,
+      pauseOnMouseEnter: false,
+      reverseDirection: true,
     },
+    loop: true,
+    loopFillGroupWithBlank: true,
+    slidesPerView: "auto",
+    spaceBetween: 20,
+    speed: 7000,
+    allowTouchMove: false,
+  });
 
-    // Pagination dots
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
+  // Slider 3 - Moving Right
+  const swiper3 = new Swiper(".swiper-3", {
+    modules: [Autoplay],
+    autoplay: {
+      delay: 0,
+      pauseOnMouseEnter: false,
     },
-
-    // Smooth transitions
-    effect: "slide",
-    speed: 600,
-
-    // Pause autoplay on hover
-    pauseOnMouseEnter: true,
+    loop: true,
+    loopFillGroupWithBlank: true,
+    slidesPerView: "auto",
+    spaceBetween: 20,
+    speed: 4000,
+    allowTouchMove: false,
   });
 }
 
@@ -241,3 +246,146 @@ document.addEventListener("keydown", function (e) {
     }, 100);
   }
 });
+
+// Audio Player functionality
+function initAudioPlayer() {
+  const audio = document.getElementById("backgroundAudio");
+  const playPauseBtn = document.getElementById("playPauseBtn");
+  const audioPlayer = document.querySelector(".audio-player");
+  const playOverlay = document.getElementById("playOverlay");
+  const bigPlayBtn = document.getElementById("bigPlayBtn");
+
+  if (!audio || !playPauseBtn || !playOverlay || !bigPlayBtn) return;
+
+  let isPlaying = false;
+
+  // Function to start audio and hide overlay
+  function startAudio() {
+    // Start video autoplay
+    const heroVideo = document.querySelector("#home video");
+    if (heroVideo) {
+      heroVideo.play().catch(error => {
+        console.log("Video autoplay failed:", error);
+      });
+    }
+
+    audio
+      .play()
+      .then(() => {
+        playPauseBtn.textContent = "⏸️";
+        audioPlayer.classList.add("playing");
+        isPlaying = true;
+
+        // Hide the fullscreen overlay
+        playOverlay.classList.add("hidden");
+
+        // Start typing effect for h1
+        initTypingEffect();
+
+        console.log("Audio started successfully");
+      })
+      .catch(error => {
+        console.log("Audio play failed:", error);
+      });
+  }
+
+  // Big play button click handler
+  bigPlayBtn.addEventListener("click", startAudio);
+
+  // Click outside overlay to hide it (optional)
+  playOverlay.addEventListener("click", function (e) {
+    if (e.target === playOverlay) {
+      startAudio();
+    }
+  });
+
+  // Small play button click handler
+  playPauseBtn.addEventListener("click", function () {
+    if (isPlaying) {
+      audio.pause();
+      playPauseBtn.textContent = "▶️";
+      audioPlayer.classList.remove("playing");
+      isPlaying = false;
+    } else {
+      audio
+        .play()
+        .then(() => {
+          playPauseBtn.textContent = "⏸️";
+          audioPlayer.classList.add("playing");
+          isPlaying = true;
+        })
+        .catch(error => {
+          console.log("Audio play failed:", error);
+        });
+    }
+  });
+
+  // Update button when audio ends
+  audio.addEventListener("ended", function () {
+    playPauseBtn.textContent = "▶️";
+    audioPlayer.classList.remove("playing");
+    isPlaying = false;
+  });
+
+  // Update button when audio is paused
+  audio.addEventListener("pause", function () {
+    playPauseBtn.textContent = "▶️";
+    audioPlayer.classList.remove("playing");
+    isPlaying = false;
+  });
+
+  // Update button when audio is playing
+  audio.addEventListener("play", function () {
+    playPauseBtn.textContent = "⏸️";
+    audioPlayer.classList.add("playing");
+    isPlaying = true;
+  });
+
+  // Loop audio when it ends
+  audio.addEventListener("ended", function () {
+    audio.currentTime = 0;
+    if (isPlaying) {
+      audio.play();
+    }
+  });
+}
+
+// Scroll Arrow functionality
+function initScrollArrow() {
+  const scrollArrow = document.querySelector(".scroll-arrow");
+  if (!scrollArrow) return;
+
+  let lastScrollTop = 0;
+  const scrollThreshold = 100; // Показывать стрелочку только если прокрутка меньше 100px
+
+  function handleScroll() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (scrollTop > scrollThreshold) {
+      // Скрыть стрелочку при прокрутке вниз
+      scrollArrow.classList.add("hidden");
+    } else {
+      // Показать стрелочку при возврате наверх
+      scrollArrow.classList.remove("hidden");
+    }
+
+    lastScrollTop = scrollTop;
+  }
+
+  // Добавить обработчик прокрутки
+  window.addEventListener("scroll", handleScroll);
+
+  // Добавить клик по стрелочке для прокрутки вниз
+  scrollArrow.addEventListener("click", function () {
+    const gallerySection = document.getElementById("gallery");
+    if (gallerySection) {
+      gallerySection.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  });
+
+  // Инициализация при загрузке
+  handleScroll();
+}

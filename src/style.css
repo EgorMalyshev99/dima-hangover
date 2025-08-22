@@ -48,7 +48,7 @@
 
   /* Stat items с кастомными свойствами */
   .stat-item {
-    @apply min-w-[120px] border-2 border-white/20 bg-white/10 p-8 text-center backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:border-accent hover:bg-white/20;
+    @apply min-w-[100px] border-2 border-white/20 bg-white/10 p-4 text-center backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:border-accent hover:bg-white/20;
   }
 
   .stat-number {
@@ -60,48 +60,40 @@
     @apply block text-base uppercase tracking-wide text-white opacity-90;
   }
 
-  /* Custom scrollbar */
-  .custom-scrollbar::-webkit-scrollbar {
-    @apply w-3;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-track {
-    @apply bg-gray-100;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply rounded-lg bg-primary;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    @apply bg-secondary;
-  }
-
-  /* Swiper Gallery Styles */
-  .gallery-swiper {
+  /* Multiple Swiper Styles */
+  .swiper-1,
+  .swiper-2,
+  .swiper-3 {
     @apply relative w-full;
-    padding: 20px 0 60px 0;
+    padding: 20px 0;
   }
 
-  .gallery-swiper .swiper-wrapper {
+  .swiper-1 .swiper-wrapper,
+  .swiper-2 .swiper-wrapper,
+  .swiper-3 .swiper-wrapper {
     @apply w-full;
+    transition-timing-function: linear;
   }
 
-  .gallery-swiper .swiper-slide {
+  .swiper-1 .swiper-slide,
+  .swiper-2 .swiper-slide,
+  .swiper-3 .swiper-slide {
     @apply h-auto w-full;
     display: flex;
     align-items: stretch;
   }
 
-  .gallery-swiper .swiper-slide > div {
+  .swiper-1 .swiper-slide > div,
+  .swiper-2 .swiper-slide > div,
+  .swiper-3 .swiper-slide > div {
     @apply relative h-full w-full;
     display: flex;
     flex-direction: column;
-    height: 400px;
+    height: 220px;
     overflow: hidden;
   }
 
-  .gallery-swiper .slide-bg {
+  .slide-bg {
     @apply absolute inset-0 h-full w-full;
     background-size: cover;
     background-position: center;
@@ -110,49 +102,139 @@
     z-index: 1;
   }
 
-  .gallery-swiper .slide-img {
+  .slide-img {
     @apply relative z-10 h-full w-full object-contain;
   }
 
-  .gallery-swiper .swiper-button-next,
-  .gallery-swiper .swiper-button-prev {
-    @apply text-primary;
-    background: rgba(0, 0, 0, 0.7);
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    transition: all 0.3s ease;
+  /* Auto-size slides for continuous flow */
+  .swiper-1 .swiper-slide,
+  .swiper-2 .swiper-slide,
+  .swiper-3 .swiper-slide {
+    width: auto;
+    min-width: 300px;
   }
 
-  .gallery-swiper .swiper-button-next:hover,
-  .gallery-swiper .swiper-button-prev:hover {
-    background: rgba(0, 0, 0, 0.9);
+  /* Countdown timer styles */
+  .countdown-item {
+    @apply p-2 text-center transition-all duration-300 hover:-translate-y-2 lg:min-w-[100px] lg:p-6;
+  }
+
+  .countdown-number {
+    @apply mb-2 block text-4xl font-bold text-accent;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .countdown-label {
+    @apply block text-sm uppercase tracking-wide text-white opacity-90;
+  }
+
+  /* Audio Player Styles */
+
+  .play-btn {
+    @apply transition-all duration-300 hover:scale-110;
+  }
+
+  .audio-player.playing .play-btn {
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+  }
+
+  /* Scroll Arrow Styles */
+  .scroll-arrow {
+    @apply absolute bottom-8 left-1/2 z-20 -translate-x-1/2;
+  }
+
+  .arrow-container {
+    @apply flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border-2 border-white/30 bg-white/10 backdrop-blur-sm transition-all duration-300 hover:border-white/50 hover:bg-white/20;
+    animation: arrow-bounce 2s infinite;
+  }
+
+  .arrow-container:hover {
+    animation-play-state: paused;
     transform: scale(1.1);
   }
 
-  .gallery-swiper .swiper-button-next::after,
-  .gallery-swiper .swiper-button-prev::after {
-    font-size: 18px;
-    font-weight: bold;
+  .arrow-icon {
+    @apply h-6 w-6 text-white;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
   }
 
-  .gallery-swiper .swiper-pagination {
-    @apply static pt-4;
+  @keyframes arrow-bounce {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-10px);
+    }
+    60% {
+      transform: translateY(-5px);
+    }
   }
 
-  .gallery-swiper .swiper-pagination-bullet {
-    @apply bg-primary;
-    opacity: 0.5;
-    transition: all 0.3s ease;
+  .scroll-arrow.hidden {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+    pointer-events: none;
   }
 
-  .gallery-swiper .swiper-pagination-bullet-active {
-    opacity: 1;
-    transform: scale(1.2);
+  /* Fullscreen Play Overlay */
+  .play-overlay {
+    @apply fixed inset-0 z-50 flex items-center justify-center;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
   }
 
-  .gallery-swiper .swiper-slide {
-    transition: transform 0.3s ease;
+  .play-overlay-bg {
+    @apply absolute inset-0 bg-cover bg-center bg-no-repeat;
+    background-image: url("/img/korzh.jpg");
+    filter: brightness(0.3) contrast(1.2);
+  }
+
+  .play-overlay-content {
+    @apply relative z-10 flex flex-col items-center justify-center text-center;
+  }
+
+  .big-play-btn {
+    @apply flex h-32 w-32 cursor-pointer items-center justify-center rounded-full border-4 border-white/30 bg-white/10 backdrop-blur-sm transition-all duration-500 hover:scale-110 hover:border-white/50 hover:bg-white/20;
+    animation: pulse-glow 2s infinite;
+  }
+
+  .big-play-icon {
+    @apply h-16 w-16 text-white;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+  }
+
+  .play-overlay-text {
+    @apply mt-8 text-xl font-semibold text-white/80;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  }
+
+  .play-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s ease-out;
+  }
+
+  @keyframes pulse-glow {
+    0%,
+    100% {
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.6);
+    }
   }
 }
 

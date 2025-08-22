@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" class="custom-scrollbar">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,327 +20,597 @@
     />
   </head>
   <body class="overflow-x-hidden">
-    <!-- Hero Section -->
-    <section
-      id="home"
-      class="relative flex min-h-screen items-center overflow-hidden py-16 lg:py-24"
-    >
-      <div class="absolute inset-0 z-0">
-        <video
-          autoplay
-          muted
-          loop
-          playsinline
-          class="h-full w-full object-cover"
-        >
-          <source src="/video/video1.mp4" type="video/mp4" />
-          Ваш браузер не поддерживает видео.
-        </video>
-        <div class="absolute inset-0 z-10 bg-black/60"></div>
+    <div class="w-screen overflow-y-auto overflow-x-hidden bg-black">
+      <!-- Fullscreen Play Overlay -->
+      <div id="playOverlay" class="play-overlay">
+        <div class="play-overlay-bg"></div>
+        <div class="play-overlay-content">
+          <button id="bigPlayBtn" class="big-play-btn">
+            <svg
+              class="big-play-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M8 5v14l11-7z" fill="currentColor" />
+            </svg>
+          </button>
+        </div>
       </div>
 
-      <div class="container relative z-30 mx-auto px-4 text-center">
-        <div data-aos="fade-up">
-          <h1
-            class="mb-4 animate-glow text-4xl font-bold text-white lg:mb-10 lg:text-7xl"
+      <!-- Hero Section -->
+      <section
+        id="home"
+        class="relative flex min-h-screen items-center overflow-hidden py-20 lg:py-24"
+      >
+        <div class="absolute inset-0 z-0">
+          <video muted loop playsinline class="h-full w-full object-cover">
+            <source src="/video/video1.mp4" type="video/mp4" />
+            Ваш браузер не поддерживает видео.
+          </video>
+          <div class="absolute inset-0 z-10 bg-black/60"></div>
+        </div>
+
+        <div class="container relative z-30 mx-auto px-4 text-center">
+          <div data-aos="fade-up">
+            <h1
+              class="mb-4 min-h-20 animate-glow text-4xl font-bold uppercase text-white lg:mb-10 lg:min-h-36 lg:text-7xl"
+            >
+              Мальчишник Димы 2025
+            </h1>
+            <p class="mb-8 text-xl text-white lg:text-2xl">
+              Последний раз на свободе! 🚨
+            </p>
+            <div class="date-badge" data-aos="zoom-in" data-aos-delay="300">
+              <h2 class="mb-3 text-2xl font-bold lg:text-3xl">
+                5-7 СЕНТЯБРЯ 2025
+              </h2>
+              <div class="audio-player inline-flex items-center gap-2">
+                <button
+                  id="playPauseBtn"
+                  class="play-btn text-2xl text-white transition-colors hover:text-primary"
+                >
+                  ▶️
+                </button>
+                <div class="audio-info flex items-center gap-1 text-white">
+                  <span>Макс Корж</span>-
+                  <span class="font-semibold opacity-80">Горы по колено</span>
+                </div>
+                <audio id="backgroundAudio" preload="auto" loop>
+                  <source src="/audio/gory-po-koleno.mp3" type="audio/mp3" />
+                  Ваш браузер не поддерживает аудио.
+                </audio>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Scroll Arrow -->
+      <div class="scroll-arrow" data-aos="fade-up" data-aos-delay="800">
+        <div class="arrow-container">
+          <svg
+            class="arrow-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            МАЛЬЧИШНИК 2025
-          </h1>
-          <p class="mb-8 text-xl text-white lg:text-2xl">
-            Последний раз на свободе! 🚨
-          </p>
-          <div class="date-badge" data-aos="zoom-in" data-aos-delay="300">
-            <h2 class="mb-0 text-2xl font-bold lg:text-3xl">
-              5-7 СЕНТЯБРЯ 2025
-            </h2>
-            <p class="mb-0 text-lg">Пятница - Воскресенье</p>
-          </div>
-          <div class="mt-12" data-aos="fade-up" data-aos-delay="500">
-            <p class="text-lg font-bold italic text-white/80">
-              Готовься к адреналину, скорости и мужскому братству! 💨
-            </p>
-            <p class="mt-4 text-lg font-bold italic text-red-400">
-              После этого - только жена и теща! 😈
-            </p>
-          </div>
+            <path
+              d="M7 10L12 15L17 10"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
         </div>
       </div>
-    </section>
 
-    <!-- Gallery Section -->
-    <section id="gallery" class="bg-black py-20 text-white">
-      <div class="container mx-auto px-4">
-        <h2
-          class="section-title mb-12 text-center text-white"
-          data-aos="fade-up"
-        >
-          Твои легендарные моменты 📸
-        </h2>
+      <!-- Gallery Section -->
+      <section id="gallery" class="bg-black py-20 text-white">
+        <div class="container mx-auto px-4">
+          <h2
+            class="section-title mb-12 text-center text-white"
+            data-aos="fade-up"
+          >
+            Какое «не пью», какие «дела»? С чуваками сбор не откладывай никогда
+          </h2>
 
-        <!-- Swiper Slider -->
-        <div
-          class="swiper gallery-swiper"
-          data-aos="fade-up"
-          data-aos-delay="200"
-        >
-          <div class="swiper-wrapper">
-            <!-- Slide 1 -->
-            <div class="swiper-slide">
-              <div
-                class="w-full overflow-hidden rounded-lg border-2 border-gray-600 bg-gray-800"
-              >
-                <div
-                  class="slide-bg"
-                  style="background-image: url(&quot;/img/1.jpg&quot;)"
-                ></div>
-                <img src="/img/1.jpg" alt="Фото 1" class="slide-img" />
+          <!-- Three Swiper Sliders -->
+          <div class="space-y-8" data-aos="fade-up" data-aos-delay="200">
+            <!-- Slider 1 - Moving Right -->
+            <div class="swiper swiper-1" data-direction="right">
+              <div class="swiper-wrapper">
+                <!-- Slides 1-9 -->
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/1.jpg&quot;)"
+                    ></div>
+                    <img src="/img/1.jpg" alt="Фото 1" class="slide-img" />
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/2.jpg&quot;)"
+                    ></div>
+                    <img src="/img/2.jpg" alt="Фото 2" class="slide-img" />
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/3.jpg&quot;)"
+                    ></div>
+                    <img src="/img/3.jpg" alt="Фото 3" class="slide-img" />
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/4.jpg&quot;)"
+                    ></div>
+                    <img src="/img/4.jpg" alt="Фото 4" class="slide-img" />
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/5.jpg&quot;)"
+                    ></div>
+                    <img src="/img/5.jpg" alt="Фото 5" class="slide-img" />
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/6.jpg&quot;)"
+                    ></div>
+                    <img src="/img/6.jpg" alt="Фото 6" class="slide-img" />
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/7.jpg&quot;)"
+                    ></div>
+                    <img src="/img/7.jpg" alt="Фото 7" class="slide-img" />
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/8.jpg&quot;)"
+                    ></div>
+                    <img src="/img/8.jpg" alt="Фото 8" class="slide-img" />
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/9.jpg&quot;)"
+                    ></div>
+                    <img src="/img/9.jpg" alt="Фото 9" class="slide-img" />
+                  </div>
+                </div>
               </div>
             </div>
 
-            <!-- Slide 2 -->
-            <div class="swiper-slide">
-              <div
-                class="overflow-hidden rounded-lg border-2 border-gray-600 bg-gray-800"
-              >
-                <div
-                  class="slide-bg"
-                  style="background-image: url(&quot;/img/2.jpg&quot;)"
-                ></div>
-                <img src="/img/2.jpg" alt="Фото 2" class="slide-img" />
+            <!-- Slider 2 - Moving Left -->
+            <div class="swiper swiper-2" data-direction="left">
+              <div class="swiper-wrapper">
+                <!-- Slides 10-18 -->
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/10.jpg&quot;)"
+                    ></div>
+                    <img src="/img/10.jpg" alt="Фото 10" class="slide-img" />
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/11.jpg&quot;)"
+                    ></div>
+                    <img src="/img/11.jpg" alt="Фото 11" class="slide-img" />
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/12.jpg&quot;)"
+                    ></div>
+                    <img src="/img/12.jpg" alt="Фото 12" class="slide-img" />
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/13.jpg&quot;)"
+                    ></div>
+                    <img src="/img/13.jpg" alt="Фото 13" class="slide-img" />
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/14.jpg&quot;)"
+                    ></div>
+                    <img src="/img/14.jpg" alt="Фото 14" class="slide-img" />
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/15.jpg&quot;)"
+                    ></div>
+                    <img src="/img/15.jpg" alt="Фото 15" class="slide-img" />
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/16.jpg&quot;)"
+                    ></div>
+                    <img src="/img/16.jpg" alt="Фото 16" class="slide-img" />
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/17.jpg&quot;)"
+                    ></div>
+                    <img src="/img/17.jpg" alt="Фото 17" class="slide-img" />
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/18.jpg&quot;)"
+                    ></div>
+                    <img src="/img/18.jpg" alt="Фото 18" class="slide-img" />
+                  </div>
+                </div>
               </div>
             </div>
 
-            <!-- Slide 3 -->
-            <div class="swiper-slide">
-              <div
-                class="overflow-hidden rounded-lg border-2 border-gray-600 bg-gray-800"
-              >
-                <div
-                  class="slide-bg"
-                  style="background-image: url(&quot;/img/3.jpg&quot;)"
-                ></div>
-                <img src="/img/3.jpg" alt="Фото 3" class="slide-img" />
-              </div>
-            </div>
-
-            <!-- Slide 4 -->
-            <div class="swiper-slide">
-              <div
-                class="overflow-hidden rounded-lg border-2 border-gray-600 bg-gray-800"
-              >
-                <div
-                  class="slide-bg"
-                  style="background-image: url(&quot;/img/4.jpg&quot;)"
-                ></div>
-                <img src="/img/4.jpg" alt="Фото 4" class="slide-img" />
-              </div>
-            </div>
-
-            <!-- Slide 5 -->
-            <div class="swiper-slide">
-              <div
-                class="overflow-hidden rounded-lg border-2 border-gray-600 bg-gray-800"
-              >
-                <div
-                  class="slide-bg"
-                  style="background-image: url(&quot;/img/5.jpg&quot;)"
-                ></div>
-                <img src="/img/5.jpg" alt="Фото 5" class="slide-img" />
-              </div>
-            </div>
-
-            <!-- Slide 6 -->
-            <div class="swiper-slide">
-              <div
-                class="overflow-hidden rounded-lg border-2 border-gray-600 bg-gray-800"
-              >
-                <div
-                  class="slide-bg"
-                  style="background-image: url(&quot;/img/6.jpg&quot;)"
-                ></div>
-                <img src="/img/6.jpg" alt="Фото 6" class="slide-img" />
+            <!-- Slider 3 - Moving Right -->
+            <div class="swiper swiper-3" data-direction="right">
+              <div class="swiper-wrapper">
+                <!-- Slides 19-27 -->
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/19.jpg&quot;)"
+                    ></div>
+                    <img src="/img/19.jpg" alt="Фото 19" class="slide-img" />
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/20.jpg&quot;)"
+                    ></div>
+                    <img src="/img/20.jpg" alt="Фото 20" class="slide-img" />
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/21.jpg&quot;)"
+                    ></div>
+                    <img src="/img/21.jpg" alt="Фото 21" class="slide-img" />
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/22.jpg&quot;)"
+                    ></div>
+                    <img src="/img/22.jpg" alt="Фото 22" class="slide-img" />
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/23.jpg&quot;)"
+                    ></div>
+                    <img src="/img/23.jpg" alt="Фото 23" class="slide-img" />
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/24.jpg&quot;)"
+                    ></div>
+                    <img src="/img/24.jpg" alt="Фото 24" class="slide-img" />
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/25.jpg&quot;)"
+                    ></div>
+                    <img src="/img/25.jpg" alt="Фото 25" class="slide-img" />
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div
+                    class="overflow-hidden rounded border-gray-600 bg-gray-800"
+                  >
+                    <div
+                      class="slide-bg"
+                      style="background-image: url(&quot;/img/26.jpg&quot;)"
+                    ></div>
+                    <img src="/img/26.jpg" alt="Фото 26" class="slide-img" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-
-          <!-- Pagination dots -->
-          <div class="swiper-pagination"></div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- About Section -->
-    <section id="about" class="bg-gray-900 py-20 text-white">
-      <div class="container mx-auto px-4">
-        <div class="grid items-center gap-12 lg:grid-cols-2">
-          <div data-aos="fade-right">
-            <h2 class="section-title text-white">Что тебя ждет? 🤔</h2>
-            <p class="mb-8 text-xl text-white/80">
-              Дима, это не просто мальчишник - это легендарное событие!
-            </p>
-            <div class="space-y-6">
-              <div
-                class="flex items-start border-2 border-gray-700 bg-gray-900 p-6"
-              >
-                <span class="mr-4 animate-bounce-slow text-5xl">🎸</span>
-                <div>
-                  <h5 class="mb-2 text-xl font-semibold text-white">
-                    Гитара и песни
-                  </h5>
-                  <p class="text-gray-300">
-                    Вспомним все хиты Макса Коржа и не только
-                  </p>
+      <!-- About Section -->
+      <section id="about" class="bg-gray-900 py-20 text-white">
+        <div class="container mx-auto px-4">
+          <div class="grid items-center gap-12 lg:grid-cols-2">
+            <div data-aos="fade-right">
+              <h2 class="mb-8 text-3xl font-bold text-white">
+                Что от нас ждать? 🤡
+              </h2>
+              <div class="space-y-6">
+                <div
+                  class="flex items-start border-2 border-gray-700 bg-gray-900 p-6"
+                >
+                  <span class="mr-4 animate-bounce-slow text-5xl">🍺</span>
+                  <div>
+                    <h5 class="mb-2 text-xl font-semibold text-white">
+                      Бухалово
+                    </h5>
+                    <p class="text-gray-300">
+                      Три дня настоящего мужского веселья и отрыва
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="flex items-start border-2 border-gray-700 bg-gray-900 p-6"
+                >
+                  <span class="mr-4 animate-bounce-slow text-5xl">🎸</span>
+                  <div>
+                    <h5 class="mb-2 text-xl font-semibold text-white">
+                      Гитара и песни
+                    </h5>
+                    <p class="text-gray-300">
+                      Вспомним все хиты Макса Коржа и не только
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="flex items-start border-2 border-gray-700 bg-gray-900 p-6"
+                >
+                  <span class="mr-4 animate-bounce-slow text-5xl">🎯</span>
+                  <div>
+                    <h5 class="mb-2 text-xl font-semibold text-white">
+                      Последний шанс
+                    </h5>
+                    <p class="text-gray-300">
+                      Последний раз в жизни можно вести себя как настоящий
+                      мужик!
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="flex items-start border-2 border-gray-700 bg-gray-900 p-6"
+                >
+                  <span class="mr-4 animate-bounce-slow text-5xl">🎁</span>
+                  <div>
+                    <h5 class="mb-2 text-xl font-semibold text-white">
+                      Сюрприз
+                    </h5>
+                    <p class="text-gray-300">
+                      Что-то очень крутое ждет тебя! Но это секрет! 🤫
+                    </p>
+                  </div>
                 </div>
               </div>
-              <div
-                class="flex items-start border-2 border-gray-700 bg-gray-900 p-6"
-              >
-                <span class="mr-4 animate-bounce-slow text-5xl">🍺</span>
-                <div>
-                  <h5 class="mb-2 text-xl font-semibold text-white">
-                    Братишка-вечеринка
-                  </h5>
-                  <p class="text-gray-300">
-                    Три дня настоящего мужского братства и веселья
-                  </p>
-                </div>
+            </div>
+            <div data-aos="fade-left">
+              <div class="funny-quote">
+                <blockquote class="mb-4 text-xl italic">
+                  "Я затолкаю тебя в тачку силой. Я отвезу тебя к пацанам! Там
+                  банька, рыбка и пиво. Братишка, я тебе сдохнуть не дам! 🍺"
+                </blockquote>
               </div>
-              <div
-                class="flex items-start border-2 border-gray-700 bg-gray-900 p-6"
-              >
-                <span class="mr-4 animate-bounce-slow text-5xl">🎯</span>
-                <div>
-                  <h5 class="mb-2 text-xl font-semibold text-white">
-                    Последний шанс
-                  </h5>
-                  <p class="text-gray-300">
-                    Последний раз в жизни можно вести себя как настоящий мужик!
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Meeting Info Section -->
+      <section id="schedule" class="bg-black py-20 text-white">
+        <div class="container mx-auto px-4">
+          <h2
+            class="section-title mb-12 text-center text-white"
+            data-aos="fade-up"
+          >
+            Где и когда встречаемся? 🏠
+          </h2>
+          <div class="flex justify-center">
+            <div class="w-full max-w-2xl text-center">
+              <div data-aos="fade-up">
+                <div class="meeting-card border-2 border-gray-700 bg-gray-900">
+                  <div class="mb-6 animate-bounce-slow text-6xl">🏠</div>
+                  <h3 class="mb-4 text-3xl font-bold text-primary">
+                    Встреча у дома Димы
+                  </h3>
+                  <p class="mb-8 text-xl font-semibold text-secondary">
+                    5 сентября 2025 года, 16:00
                   </p>
-                </div>
-              </div>
-              <div
-                class="flex items-start border-2 border-gray-700 bg-gray-900 p-6"
-              >
-                <span class="mr-4 animate-bounce-slow text-5xl">🎁</span>
-                <div>
-                  <h5 class="mb-2 text-xl font-semibold text-white">Сюрприз</h5>
-                  <p class="text-gray-300">
-                    Что-то очень крутое ждет тебя, Дима! Но это секрет! 🤫
-                  </p>
+                  <div class="mx-auto max-w-md text-left">
+                    <p class="mb-4 font-bold text-white">План:</p>
+                    <ul class="space-y-3">
+                      <li class="flex items-center">
+                        <span class="mr-3 text-2xl">⌚</span>
+                        <span class="text-lg text-gray-300"
+                          >16:00 - Сбор у дома жениха</span
+                        >
+                      </li>
+                      <li class="flex items-center">
+                        <span class="mr-3 text-2xl">🚀</span>
+                        <span class="text-lg text-gray-300">
+                          16:30 - Отправление в путешествие
+                        </span>
+                      </li>
+                      <li class="flex items-center">
+                        <span class="mr-3 text-2xl">🤪</span>
+                        <span class="text-lg text-gray-300">
+                          Далее - отрыв бошки
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <!-- Team Info Section -->
+      <section
+        id="rsvp"
+        class="bg-gradient-to-br from-gray-900 via-black to-gray-900 py-20 text-white"
+      >
+        <div class="container mx-auto px-4">
+          <div class="flex justify-center">
+            <div class="w-full max-w-4xl text-center">
+              <h2 class="section-title mb-8 text-white" data-aos="fade-up">
+                Твоя команда 🍻
+              </h2>
+              <p class="mb-12 text-xl" data-aos="fade-up" data-aos-delay="100">
+                Только самые близкие и проверенные люди!
+              </p>
+              <div data-aos="fade-up" data-aos-delay="200">
+                <div class="grid gap-8 md:grid-cols-3">
+                  <div class="stat-item border-2 border-gray-600 bg-gray-800">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">дня</span>
+                  </div>
+                  <div class="stat-item border-2 border-gray-600 bg-gray-800">
+                    <span class="stat-number">∞</span>
+                    <span class="stat-label">воспоминаний</span>
+                  </div>
+                  <div class="stat-item border-2 border-gray-600 bg-gray-800">
+                    <span class="stat-number">💯</span>
+                    <span class="stat-label">готовы на все!</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="bg-black py-12 text-center text-white">
+        <div class="container mx-auto px-4">
           <div data-aos="fade-left">
             <div class="funny-quote">
               <blockquote class="mb-4 text-xl italic">
-                "Жениться - это как купить билет в один конец на самолет, где
-                стюардесса - твоя теща, а пилот - твоя жена!"
+                "Жги, сын, пока молодой. Скоро придет твое время<br />
+                Рви, сын, пока молодой. Скоро придет твое время..."
               </blockquote>
-              <cite class="text-sm opacity-80">- Мудрость предков</cite>
-              <blockquote class="mt-4 text-lg italic">
-                "Дима, наслаждайся последними днями свободы! 🚨"
-              </blockquote>
-              <cite class="text-sm opacity-80">- Твои друзья</cite>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
+          <p class="text-3xl text-primary"></p>
+          <p class="mb-8 text-3xl text-primary"></p>
 
-    <!-- Meeting Info Section -->
-    <section id="schedule" class="bg-black py-20 text-white">
-      <div class="container mx-auto px-4">
-        <h2
-          class="section-title mb-12 text-center text-white"
-          data-aos="fade-up"
-        >
-          Где и когда встречаемся? 🏠
-        </h2>
-        <div class="flex justify-center">
-          <div class="w-full max-w-2xl text-center">
-            <div data-aos="fade-up">
-              <div class="meeting-card border-2 border-gray-700 bg-gray-900">
-                <div class="mb-6 animate-bounce-slow text-6xl">🏠</div>
-                <h3 class="mb-4 text-3xl font-bold text-primary">
-                  Встреча у дома Димы
-                </h3>
-                <p class="mb-8 text-xl font-semibold text-secondary">
-                  5 сентября 2025 года, 16:00
-                </p>
-                <div class="mx-auto max-w-md text-left">
-                  <p class="mb-4 font-bold text-white">План:</p>
-                  <ul class="mb-6 space-y-3">
-                    <li class="flex items-center">
-                      <span class="mr-3 text-2xl">🚐</span>
-                      <span class="text-lg text-gray-300"
-                        >16:00 - Сбор у дома жениха</span
-                      >
-                    </li>
-                    <li class="flex items-center">
-                      <span class="mr-3 text-2xl">🚐</span>
-                      <span class="text-lg text-gray-300">
-                        16:30 - Отправление в путешествие
-                      </span>
-                    </li>
-                  </ul>
-                  <p class="text-center font-semibold italic text-primary">
-                    Три дня свободы, приключений и настоящего мужского братства!
-                    🚐
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <img
+            src="/img/korzh.jpg"
+            alt="Макс Корж"
+            class="mx-auto h-auto w-full max-w-3xl rounded shadow-lg"
+          />
         </div>
-      </div>
-    </section>
-
-    <!-- Team Info Section -->
-    <section
-      id="rsvp"
-      class="bg-gradient-to-br from-gray-900 via-black to-gray-900 py-20 text-white"
-    >
-      <div class="container mx-auto px-4">
-        <div class="flex justify-center">
-          <div class="w-full max-w-4xl text-center">
-            <h2 class="section-title mb-8 text-white" data-aos="fade-up">
-              Твоя команда 🍻
-            </h2>
-            <p class="mb-12 text-xl" data-aos="fade-up" data-aos-delay="100">
-              Только самые близкие и проверенные друзья! Мы создадим легендарный
-              мальчишник для тебя!
-            </p>
-            <div data-aos="fade-up" data-aos-delay="200">
-              <div class="grid gap-8 md:grid-cols-3">
-                <div class="stat-item border-2 border-gray-600 bg-gray-800">
-                  <span class="stat-number">3</span>
-                  <span class="stat-label">дня</span>
-                </div>
-                <div class="stat-item border-2 border-gray-600 bg-gray-800">
-                  <span class="stat-number">∞</span>
-                  <span class="stat-label">воспоминаний</span>
-                </div>
-                <div class="stat-item border-2 border-gray-600 bg-gray-800">
-                  <span class="stat-number">💯</span>
-                  <span class="stat-label">готовы на все!</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-black py-8 text-center text-white">
-      <div class="container mx-auto px-4">
-        <p class="text-lg italic text-primary">
-          Когда собирается команда настоящих друзей - любое место превращается в
-          рай для тебя! ✨
-        </p>
-      </div>
-    </footer>
+      </footer>
+    </div>
 
     <!-- Scripts -->
     <script type="module" src="/src/main.js"></script>

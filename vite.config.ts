@@ -1,13 +1,8 @@
 import { defineConfig } from "vite";
-import { resolve } from "path";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 
 export default defineConfig({
-  resolve: {
-    alias: {
-      "@": resolve(__dirname, "./src"),
-    },
-  },
+  base: "./",
   plugins: [ViteImageOptimizer()],
   server: {
     port: 3000,
@@ -15,10 +10,12 @@ export default defineConfig({
   },
   build: {
     outDir: "dist",
-    sourcemap: true,
+    assetsDir: "assets",
+    sourcemap: false,
+    minify: "esbuild",
     rollupOptions: {
-      input: {
-        main: resolve(__dirname, "index.html"),
+      output: {
+        manualChunks: undefined,
       },
     },
   },

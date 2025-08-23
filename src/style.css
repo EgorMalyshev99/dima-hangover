@@ -121,7 +121,7 @@
   }
 
   .gallery-sliders .embla__slide > div {
-    @apply h-[200px] max-w-[280px] lg:h-[300px] lg:max-w-[360px];
+    @apply h-[200px] lg:h-[300px] lg:max-w-[360px];
   }
 
   .slide-bg {

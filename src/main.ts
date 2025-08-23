@@ -182,7 +182,7 @@ function initCarouselInstances(): void {
     },
     [
       AutoScroll({
-        speed: 0.75,
+        speed: 1,
         playOnInit: true,
         stopOnInteraction: false,
         stopOnMouseEnter: false,
@@ -198,7 +198,7 @@ function initCarouselInstances(): void {
     },
     [
       AutoScroll({
-        speed: 0.75,
+        speed: 1,
         playOnInit: true,
         direction: "backward",
         stopOnInteraction: false,
@@ -215,7 +215,7 @@ function initCarouselInstances(): void {
     },
     [
       AutoScroll({
-        speed: 0.75,
+        speed: 1,
         playOnInit: true,
         stopOnInteraction: false,
         stopOnMouseEnter: false,

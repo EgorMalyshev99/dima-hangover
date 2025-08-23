@@ -115,13 +115,17 @@
   }
 
   .gallery-sliders .embla__slide {
-    @apply flex min-w-0 flex-col items-center justify-center overflow-hidden rounded-md;
+    @apply flex min-w-0 max-w-[250px] flex-col items-center justify-center overflow-hidden rounded-md lg:max-w-[360px];
     margin-right: var(--slide-spacing);
     transform: translate3d(0, 0, 0);
   }
 
   .gallery-sliders .slide-img {
-    @apply h-[200px] max-w-full rounded-sm lg:h-[260px];
+    @apply h-[200px] max-w-full lg:h-[260px];
+  }
+
+  .gallery-sliders .slide-bg {
+    @apply absolute inset-0 size-full;
   }
 
   .slide-bg {

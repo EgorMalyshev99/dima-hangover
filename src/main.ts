@@ -250,6 +250,7 @@ function generateSlides(carouselSelector: string) {
   imageNumbers.forEach(imageNum => {
     const slideHTML = `
       <div class="embla__slide">
+        <div class="slide-bg" style="background-image: url('./img/${imageNum}.jpg')"></div>
         <img src="./img/${imageNum}.jpg" alt="Фото ${imageNum}" class="slide-img" />
       </div>
     `;

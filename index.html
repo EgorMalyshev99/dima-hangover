@@ -22,7 +22,10 @@
       <div id="playOverlay" class="play-overlay">
         <div class="play-overlay-bg"></div>
         <div class="play-overlay-content">
-          <button id="bigPlayBtn" class="big-play-btn">
+          <button
+            id="bigPlayBtn"
+            class="big-play-btn opacity-0 transition-all duration-300"
+          >
             <svg
               class="big-play-icon"
               viewBox="0 0 24 24"
@@ -38,7 +41,7 @@
       <!-- Hero Section -->
       <section
         id="home"
-        class="relative flex min-h-dvh flex-col overflow-hidden pb-4 pt-24 lg:pb-8"
+        class="relative flex min-h-dvh flex-col overflow-hidden pb-4 pt-16 lg:pb-8 lg:pt-24"
       >
         <div class="absolute inset-0 z-0">
           <video muted loop playsinline class="h-full w-full object-cover">
@@ -47,8 +50,11 @@
           </video>
           <div class="absolute inset-0 z-10 bg-black/60"></div>
         </div>
+        <div class="mb-auto"></div>
 
-        <div class="container relative z-30 mx-auto px-4 text-center">
+        <div
+          class="container relative z-30 mx-auto self-center px-4 text-center"
+        >
           <div data-aos="fade-up">
             <h1
               class="mb-4 min-h-20 animate-glow text-4xl font-bold uppercase text-white lg:mb-10 lg:text-7xl"
@@ -80,7 +86,7 @@
         </div>
 
         <!-- Scroll Arrow -->
-        <div class="scroll-arrow">
+        <div class="scroll-arrow opacity-0">
           <div class="arrow-container">
             <svg
               class="arrow-icon"

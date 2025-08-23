@@ -5,43 +5,21 @@ import type { ImageRange } from "./types";
 import "aos/dist/aos.css";
 import "./style.css";
 
-// Lock scrolling initially
 function lockScroll(): void {
-  document.body.classList.add("scroll-locked");
-
-  // Additional mobile scroll prevention
-  document.addEventListener("touchmove", preventScroll, { passive: false });
-  document.addEventListener("wheel", preventScroll, { passive: false });
+  document.body.style.overflow = "hidden";
 }
 
-// Unlock scrolling
 function unlockScroll(): void {
-  document.body.classList.remove("scroll-locked");
-
-  // Remove scroll prevention listeners
-  document.removeEventListener("touchmove", preventScroll);
-  document.removeEventListener("wheel", preventScroll);
+  document.body.style.overflow = "auto";
 }
 
-// Prevent scroll events
-function preventScroll(e: Event): void {
-  e.preventDefault();
-}
+lockScroll();
 
-// Initialize all functionality
 document.addEventListener("DOMContentLoaded", function () {
-  // Lock scrolling initially
-  lockScroll();
-
   initCountdown();
   initInteractiveElements();
   initAudioPlayer();
   initScrollArrow();
-});
-
-// Also lock scroll on window load for better reliability
-window.addEventListener("load", function () {
-  lockScroll();
 });
 
 // Countdown timer
@@ -331,13 +309,7 @@ function initAudioPlayer(): void {
 
   // Big play button click handler
   bigPlayBtn.addEventListener("click", startAudio);
-
-  // Click outside overlay to hide it (optional)
-  playOverlay.addEventListener("click", function (e) {
-    if (e.target === playOverlay) {
-      startAudio();
-    }
-  });
+  bigPlayBtn.classList.remove("opacity-0");
 
   // Small play button click handler
   playPauseBtn.addEventListener("click", function () {
@@ -433,12 +405,12 @@ function initScrollArrow(): void {
     if (scrollTop > scrollThreshold) {
       // Скрыть стрелочку при прокрутке вниз
       if (scrollArrow) {
-        scrollArrow.classList.add("hidden");
+        scrollArrow.classList.add("opacity-0");
       }
     } else {
       // Показать стрелочку при возврате наверх
       if (scrollArrow) {
-        scrollArrow.classList.remove("hidden");
+        scrollArrow.classList.remove("opacity-0");
       }
     }
   }

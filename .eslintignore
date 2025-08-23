@@ -1,0 +1,12 @@
+node_modules/
+dist/
+build/
+coverage/
+*.min.js
+*.bundle.js
+public/
+.github/
+*.config.js
+vite.config.js
+tailwind.config.js
+postcss.config.js

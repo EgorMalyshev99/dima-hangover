@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Basic Embla Carousel Styles */
+.embla {
+  overflow: hidden;
+}
+
+.embla__container {
+  display: flex;
+}
+
+.embla__slide {
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
 /* Custom component classes - только те, где нужны кастомные CSS свойства */
 @layer components {
   /* Date badge с кастомным поворотом */
@@ -15,6 +29,14 @@
     @apply bg-white/20;
   }
 
+  .date-badge h2 {
+    @apply mb-3 text-2xl font-bold lg:text-3xl;
+  }
+
+  .date-badge-heading {
+    @apply mb-3 text-2xl font-bold lg:text-3xl;
+  }
+
   /* Section title с кастомным псевдоэлементом */
   .section-title {
     @apply relative mb-4 text-4xl font-bold text-dark;
@@ -22,7 +44,7 @@
 
   .section-title::after {
     content: "";
-    @apply absolute -bottom-3 left-1/2 h-1 w-20 -translate-x-1/2 transform rounded-full bg-gradient-to-r from-primary to-secondary;
+    @apply absolute -bottom-[10px] left-1/2 h-1 w-20 -translate-x-1/2 rounded-full bg-gradient-to-br from-primary to-secondary;
   }
 
   /* Funny quote с кастомным поворотом и псевдоэлементом */
@@ -33,17 +55,31 @@
 
   .funny-quote::before {
     content: '"';
-    @apply absolute -top-2 left-5 text-6xl text-white/30;
+    position: absolute;
+    top: -0.5rem;
+    left: 1.25rem;
+    font-size: 3.75rem;
+    opacity: 0.3;
   }
 
   /* Meeting card с кастомным псевдоэлементом */
   .meeting-card {
-    @apply relative overflow-hidden bg-white p-12 transition-all duration-300 hover:-translate-y-3;
+    @apply relative overflow-hidden p-12 transition-all duration-300 hover:-translate-y-3;
   }
 
   .meeting-card::before {
     content: "";
-    @apply absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-primary via-secondary to-accent;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 0.25rem;
+    background: linear-gradient(
+      to right,
+      var(--tw-gradient-from),
+      var(--tw-gradient-via),
+      var(--tw-gradient-to)
+    );
   }
 
   /* Stat items с кастомными свойствами */
@@ -52,7 +88,7 @@
   }
 
   .stat-number {
-    @apply mb-2 block text-5xl font-bold text-accent;
+    @apply mb-2 block text-5xl font-bold text-accent lg:text-7xl;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   }
 
@@ -60,44 +96,44 @@
     @apply block text-base uppercase tracking-wide text-white opacity-90;
   }
 
-  /* Multiple Swiper Styles */
-  .swiper-1,
-  .swiper-2,
-  .swiper-3 {
-    @apply relative w-full;
-    padding: 20px 0;
+  /* About section items */
+  .about-item {
+    @apply flex items-start rounded-2xl border-2 border-gray-700 bg-gray-900 p-6 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:scale-105;
+  }
+
+  /* Multiple Embla Carousel Styles */
+  .gallery-sliders .embla {
     overflow: hidden;
+    pointer-events: none;
+    --slide-spacing: 1rem;
   }
 
-  .swiper-1 .swiper-wrapper,
-  .swiper-2 .swiper-wrapper,
-  .swiper-3 .swiper-wrapper {
-    @apply w-full;
-    transition-timing-function: linear;
-  }
-
-  .swiper-1 .swiper-slide,
-  .swiper-2 .swiper-slide,
-  .swiper-3 .swiper-slide {
-    @apply h-auto w-full;
-    max-width: 320px;
-    width: auto;
+  .gallery-sliders .embla__container {
     display: flex;
-    align-items: stretch;
+    touch-action: pan-y pinch-zoom;
+    margin-left: calc(var(--slide-spacing) * -1);
   }
 
-  .swiper-1 .swiper-slide > div,
-  .swiper-2 .swiper-slide > div,
-  .swiper-3 .swiper-slide > div {
-    @apply relative h-full w-full;
+  .gallery-sliders .embla__slide {
+    margin-right: var(--slide-spacing);
+    transform: translate3d(0, 0, 0);
+    min-width: 0;
+    overflow: hidden;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .gallery-sliders .embla__slide > div {
+    max-width: 260px;
     height: 220px;
-    overflow: hidden;
   }
 
   .slide-bg {
-    @apply absolute inset-0 h-full w-full;
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
     background-size: cover;
     background-position: center;
     filter: blur(10px);
@@ -106,10 +142,18 @@
   }
 
   .slide-img {
-    @apply relative z-10 h-full w-full object-contain;
+    position: relative;
+    z-index: 10;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
   }
 
   /* Countdown timer styles */
+  .countdown-timer {
+    @apply my-6 flex flex-wrap justify-center gap-4 lg:gap-6;
+  }
+
   .countdown-item {
     @apply p-2 text-center transition-all duration-300 hover:-translate-y-2 lg:min-w-[100px] lg:p-6;
   }
@@ -124,9 +168,16 @@
   }
 
   /* Audio Player Styles */
+  .audio-player {
+    @apply inline-flex items-center gap-2;
+  }
 
   .play-btn {
-    @apply transition-all duration-300 hover:scale-110;
+    @apply text-2xl text-white transition-all transition-colors duration-300 hover:scale-110 hover:text-primary;
+  }
+
+  .audio-info {
+    @apply text-white;
   }
 
   .audio-player.playing .play-btn {
@@ -149,13 +200,14 @@
   }
 
   .arrow-container {
-    @apply flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border-2 border-white/30 bg-white/10 backdrop-blur-sm transition-all duration-300 hover:border-white/50 hover:bg-white/20;
+    @apply flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border-2 border-white/30 bg-white/10 backdrop-blur-sm transition-all duration-300;
     animation: arrow-bounce 2s infinite;
   }
 
   .arrow-container:hover {
     animation-play-state: paused;
     transform: scale(1.1);
+    @apply border-white/50 bg-white/20;
   }
 
   .arrow-icon {
@@ -202,18 +254,17 @@
   }
 
   .big-play-btn {
-    @apply flex h-32 w-32 cursor-pointer items-center justify-center rounded-full border-4 border-white/30 bg-white/10 backdrop-blur-sm transition-all duration-500 hover:scale-110 hover:border-white/50 hover:bg-white/20;
+    @apply flex h-32 w-32 cursor-pointer items-center justify-center rounded-full border-4 border-white/30 bg-white/10 backdrop-blur-sm transition-all duration-500;
     animation: pulse-glow 2s infinite;
+  }
+
+  .big-play-btn:hover {
+    @apply scale-110 border-white/50 bg-white/20;
   }
 
   .big-play-icon {
     @apply h-16 w-16 text-white;
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
-  }
-
-  .play-overlay-text {
-    @apply mt-8 text-xl font-semibold text-white/80;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
   }
 
   .play-overlay.hidden {
@@ -242,27 +293,6 @@
     }
     50% {
       box-shadow: 0 0 40px rgba(255, 255, 255, 0.6);
-    }
-  }
-}
-
-/* Responsive adjustments */
-@layer utilities {
-  @media (max-width: 768px) {
-    .date-badge {
-      @apply mx-4 p-6;
-    }
-
-    .meeting-card {
-      @apply p-8;
-    }
-
-    .stat-item {
-      @apply min-w-[100px] p-6;
-    }
-
-    .stat-number {
-      @apply text-4xl;
     }
   }
 }

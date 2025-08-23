@@ -201,7 +201,7 @@ const targetDate = new Date("September 5, 2025 18:00:00").getTime();
   <img
     src="path/to/your/photo.jpg"
     alt="Описание фото"
-    class="w-full h-full object-cover"
+    class="h-full w-full object-cover"
   />
 </div>
 ```
@@ -211,7 +211,7 @@ const targetDate = new Date("September 5, 2025 18:00:00").getTime();
 Замените ссылку на видео в hero секции в `index.html`:
 
 ```html
-<video autoplay muted loop playsinline class="w-full h-full object-cover">
+<video autoplay muted loop playsinline class="h-full w-full object-cover">
   <source src="path/to/your/video.mp4" type="video/mp4" />
   <source src="path/to/your/video.webm" type="video/webm" />
 </video>
@@ -254,7 +254,7 @@ theme: {
 ```css
 @layer components {
   .my-custom-class {
-    @apply bg-primary text-white p-4 rounded-lg;
+    @apply rounded-lg bg-primary p-4 text-white;
   }
 }
 ```

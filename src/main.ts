@@ -151,8 +151,6 @@ function initInteractiveElements() {
         (this as HTMLElement).style.transform = "scale(1) translateY(0)";
       });
     });
-
-  // Swiper gallery will be initialized after play button click
 }
 
 // Initialize Multiple Embla Carousels
@@ -252,13 +250,7 @@ function generateSlides(carouselSelector: string) {
   imageNumbers.forEach(imageNum => {
     const slideHTML = `
       <div class="embla__slide">
-        <div class="overflow-hidden rounded border-gray-600 bg-gray-800">
-          <div
-            class="slide-bg"
-            style="background-image: url('./img/${imageNum}.jpg')"
-          ></div>
-          <img src="./img/${imageNum}.jpg" alt="Фото ${imageNum}" class="slide-img" />
-        </div>
+        <img src="./img/${imageNum}.jpg" alt="Фото ${imageNum}" class="slide-img" />
       </div>
     `;
     carouselContainer.insertAdjacentHTML("beforeend", slideHTML);

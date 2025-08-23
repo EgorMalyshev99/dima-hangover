@@ -120,8 +120,8 @@
     transform: translate3d(0, 0, 0);
   }
 
-  .gallery-sliders .embla__slide > div {
-    @apply h-[200px] lg:h-[300px] lg:max-w-[360px];
+  .gallery-sliders .slide-img {
+    @apply h-[200px] max-w-full rounded-sm lg:h-[260px];
   }
 
   .slide-bg {

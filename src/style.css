@@ -115,18 +115,13 @@
   }
 
   .gallery-sliders .embla__slide {
+    @apply flex min-w-0 flex-col items-center justify-center overflow-hidden rounded-md;
     margin-right: var(--slide-spacing);
     transform: translate3d(0, 0, 0);
-    min-width: 0;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   .gallery-sliders .embla__slide > div {
-    max-width: 260px;
-    height: 220px;
+    @apply h-[200px] max-w-[280px] lg:h-[300px] lg:max-w-[360px];
   }
 
   .slide-bg {

@@ -1,13 +1,9 @@
-import "./style.css";
-import AOS from "aos";
-import "aos/dist/aos.css";
-
-// Import Embla Carousel with AutoScroll plugin
 import EmblaCarousel from "embla-carousel";
 import AutoScroll from "embla-carousel-auto-scroll";
-
-// Import types
+import AOS from "aos";
 import type { ImageRange } from "./types";
+import "aos/dist/aos.css";
+import "./style.css";
 
 // Initialize AOS (Animate On Scroll) - will be started after play button click
 let aosInitialized = false;
@@ -256,9 +252,9 @@ function generateSlides(carouselSelector: string) {
         <div class="overflow-hidden rounded border-gray-600 bg-gray-800">
           <div
             class="slide-bg"
-            style="background-image: url('/img/${imageNum}.jpg')"
+            style="background-image: url('./img/${imageNum}.jpg')"
           ></div>
-          <img src="/img/${imageNum}.jpg" alt="Фото ${imageNum}" class="slide-img" />
+          <img src="./img/${imageNum}.jpg" alt="Фото ${imageNum}" class="slide-img" />
         </div>
       </div>
     `;

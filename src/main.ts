@@ -5,9 +5,6 @@ import type { ImageRange } from "./types";
 import "aos/dist/aos.css";
 import "./style.css";
 
-// Initialize AOS (Animate On Scroll) - will be started after play button click
-let aosInitialized = false;
-
 // Lock scrolling initially
 function lockScroll(): void {
   document.body.classList.add("scroll-locked");
@@ -138,19 +135,15 @@ function initTypingEffect() {
 // Interactive elements
 function initInteractiveElements() {
   // Add hover effects to interactive elements
-  document
-    .querySelectorAll(
-      ".flex.items-start.p-6.bg-white.rounded-2xl.shadow-lg, .bg-white.rounded-2xl.overflow-hidden.shadow-lg, .meeting-card"
-    )
-    .forEach((item: Element) => {
-      item.addEventListener("mouseenter", function (this: Element) {
-        (this as HTMLElement).style.transform = "scale(1.02) translateY(-2px)";
-      });
-
-      item.addEventListener("mouseleave", function (this: Element) {
-        (this as HTMLElement).style.transform = "scale(1) translateY(0)";
-      });
+  document.querySelectorAll(".meeting-card").forEach((item: Element) => {
+    item.addEventListener("mouseenter", function (this: Element) {
+      (this as HTMLElement).style.transform = "scale(1.02) translateY(-2px)";
     });
+
+    item.addEventListener("mouseleave", function (this: Element) {
+      (this as HTMLElement).style.transform = "scale(1) translateY(0)";
+    });
+  });
 }
 
 // Initialize Multiple Embla Carousels
@@ -306,36 +299,33 @@ function initAudioPlayer(): void {
           }
           isPlaying = true;
 
-          // Hide the fullscreen overlay
-          if (playOverlay) {
-            playOverlay.classList.add("hidden");
-          }
-
-          // Unlock scrolling
-          unlockScroll();
-
-          // Start typing effect for h1
-          initTypingEffect();
-
-          // Initialize Swiper gallery
-          initGalleryCarousel();
-
-          // Initialize AOS animations
-          if (!aosInitialized) {
-            AOS.init({
-              duration: 800,
-              easing: "ease-in-out",
-              once: true,
-              offset: 100,
-            });
-            aosInitialized = true;
-          }
-
           console.log("Audio started successfully");
         })
         .catch((error: Error) => {
           console.log("Audio play failed:", error);
         });
+    }
+
+    // Unlock scrolling
+    unlockScroll();
+
+    // Start typing effect for h1
+    initTypingEffect();
+
+    // Initialize Swiper gallery
+    initGalleryCarousel();
+
+    // Initialize AOS animations
+    AOS.init({
+      duration: 800,
+      easing: "ease-in-out",
+      once: true,
+      offset: 100,
+    });
+
+    // Hide the fullscreen overlay
+    if (playOverlay) {
+      playOverlay.classList.add("hidden");
     }
   }
 
